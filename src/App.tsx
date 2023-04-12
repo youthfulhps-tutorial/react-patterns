@@ -2,6 +2,8 @@ import React, { ChangeEventHandler, useState } from "react";
 import GeneralSelect from "./patterns/general";
 import CompoundComponentsPatternSelect from "./patterns/compound-components-pattern";
 import { selectableOptions, SelectableOptionKey } from "./_shared/types";
+import CustomHookPatternSelect from "./patterns/custom-hook-pattern";
+import useSelect from "./patterns/custom-hook-pattern/useSelect";
 
 function App() {
   const [selectedOption, setSelectedOption] =
@@ -10,6 +12,8 @@ function App() {
   const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSelectedOption(e.target.value as SelectableOptionKey);
   };
+
+  const useSelectReturnProps = useSelect();
 
   return (
     <div>
@@ -25,6 +29,10 @@ function App() {
           <CompoundComponentsPatternSelect.OptionList />
         </CompoundComponentsPatternSelect.Select>
       </CompoundComponentsPatternSelect>
+      <CustomHookPatternSelect
+        selectableOptions={useSelectReturnProps.selectableOptions}
+        onChange={useSelectReturnProps.handleSelectChange}
+      />
     </div>
   );
 }
