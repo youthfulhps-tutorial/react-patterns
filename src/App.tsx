@@ -1,9 +1,10 @@
 import React, { ChangeEventHandler, useState } from "react";
+import { selectableOptions, SelectableOptionKey } from "./_shared/types";
 import GeneralSelect from "./patterns/general";
 import CompoundComponentsPatternSelect from "./patterns/compound-components-pattern";
-import { selectableOptions, SelectableOptionKey } from "./_shared/types";
 import CustomHookPatternSelect from "./patterns/custom-hook-pattern";
 import useSelect from "./patterns/custom-hook-pattern/useSelect";
+import HeadlessPatternSelect from "./patterns/headless-parttern";
 
 function App() {
   const [selectedOption, setSelectedOption] =
@@ -33,6 +34,21 @@ function App() {
         selectableOptions={useSelectReturnProps.selectableOptions}
         onChange={useSelectReturnProps.handleSelectChange}
       />
+      <HeadlessPatternSelect>
+        {({ selectedOption, setSelectedOption }) => (
+          <select
+            onChange={(e) =>
+              setSelectedOption(e.target.value as SelectableOptionKey)
+            }
+          >
+            {selectableOptions.map((selectableOption) => (
+              <option key={selectableOption} value={selectableOption}>
+                {selectableOption}
+              </option>
+            ))}
+          </select>
+        )}
+      </HeadlessPatternSelect>
     </div>
   );
 }
